@@ -3,7 +3,7 @@ Written by Nejc Klemenčič, December 22th, 2019
 
 This is a library for the SCD30 CO2 Sensor Module. 
 The sensor uses either I2C or UART to comminucate.
-This library is intented for the I2C interface.
+This library is intented for the UART interface.
 
 The library with the I2C interface can be found at: <insert later>
 
@@ -17,7 +17,6 @@ Sensor interface description can be found at:
 https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9.5_CO2/Sensirion_CO2_Sensors_SCD30_Interface_Description.pdf.
 */
 
-#include <Wire.h>
 #include "SCD30_UART_lib.h"
 
 SCD30 scdSensor;
