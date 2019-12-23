@@ -1,0 +1,34 @@
+###########################################
+# Syntax Coloring Map For SCD30 I2C Library
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+SCD30   KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+begin   KEYWORD2
+beginMeasuring  KEYWORD2
+stopMeasuring   KEYWORD2
+dataAvailable	KEYWORD2
+enableAutomaticSelfCalibration  KEYWORD2
+disableAutomaticSelfCalibration KEYWORD2
+setForcedRecalibrationValue KEYWORD2
+setMeasurementInterval  KEYWORD2
+setTemperatureOffset    KEYWORD2
+setAmbientPressure  KEYWORD2
+setAltitudeCompensation KEYWORD2
+readMeasurement KEYWORD2
+getHumidity KEYWORD2
+getTemperatureC  KEYWORD2
+getTemperatureK  KEYWORD2
+getTemperatureF  KEYWORD2
+getCO2  KEYWORD2
+sendCommand KEYWORD2
+clearBuffer KEYWORD2
+computeCRC16 KEYWORD2
