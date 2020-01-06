@@ -5,7 +5,10 @@ This is a library for the SCD30 CO2 Sensor Module.
 The sensor uses either I2C or UART to comminucate.
 This library is intented for the UART interface.
 
-The library with the I2C interface can be found at: <insert later>
+The library with the I2C interface can be found at: https://github.com/NejcKle/sens1
+
+To select the UART interface the SEL pin needs to be pulled to VDD voltage during power-up of the SCD30 sensor module.
+NOTE: This library is intended for use only with Hardware Serial, the default is Serial1.
 
 The SCD30 measures CO2 with an accuracy of +/- 30ppm.
 
@@ -37,11 +40,12 @@ https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9.
 #define SCD30_SET_MEASUREMENT_INTERVAL 0x0025
 #define SCD30_GET_READY_STATUS 0x0027
 #define SCD30_READ_MEASUREMENT 0x0028
-#define SCD30_SET_ALTITUDE_COMPENSATION 0x0038
-#define SCD30_SET_TEMPERATURE_OFFSET 0x003B
 #define SCD30_SET_AUTOMATIC_SELFCALIBRATION 0x003A
 #define SCD30_SET_FORCED_RECALIBRATION 0x0039
-#define SCD30_READ_FIRMWARE_VERSION 0x0038
+#define SCD30_SET_TEMPERATURE_OFFSET 0x003B
+#define SCD30_SET_ALTITUDE_COMPENSATION 0x0038
+#define SCD30_READ_FIRMWARE_VERSION 0x0020
+#define SCD30_SOFT_RESET 0x0034
 
 //the supported baud rate is 19200 Baud with 8 Data bits, 1 Start bit and 1 Stop bit, no Parity bit
 #define BAUD_RATE 19200
@@ -70,6 +74,12 @@ class SCD30
         void setAmbientPressure(uint16_t abmientPressure); //sets ambientPressure, values range from 700 to 1200 mBar
         void setAltitudeCompensation(uint16_t altitude); //sets altitude, values range from 0 upwards, in meters
         
+        uint16_t getMeasurementInterval(); //gets measurement interval
+        boolean getAutomaticSelfCalibration(); //returns 1 if ASC is enabled, 0 otherwise
+        uint16_t getForcedRecalibrationValue(); //gets set FRC value
+        uint16_t getTemperatureOffset(); //gets set temperature offset
+        uint16_t getAltitudeCompensation(); //gets set altitute compensation value
+
         void readMeasurement(); //reads 17 byte measurement
 
         float getHumidity(); //gets humidity in %RH
@@ -83,14 +93,20 @@ class SCD30
 
         uint16_t computeCRC16(uint8_t data[], uint8_t len); //calculates crc checksum
         
-        uint8_t* getFirmwareVersion();
+        uint8_t* getFirmwareVersion(); //gets the firmware version in format [major, minor]
+
+        boolean softReset(); //soft resets the sensor
 
     private:
         //measured values
         float co2 = 0;
         float temperature = 0;
         float humidity = 0;
-        uint8_t* firmwareVersion;
+        uint8_t firmwareVersion[2];
+        
+        //CRC tables
+        const static uint8_t tableCRCMSB[];
+        const static uint8_t tableCRCLSB[];
 };
 
 #endif
